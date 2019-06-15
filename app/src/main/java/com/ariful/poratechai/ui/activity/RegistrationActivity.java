@@ -1,5 +1,6 @@
 package com.ariful.poratechai.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +50,10 @@ public class RegistrationActivity extends AppCompatActivity {
     FirebaseAuth auth;
     DatabaseReference reference;
 
+    public static Intent newRegistrationInstance(Context context) {
+        return new Intent(context,RegistrationActivity.class);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +71,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.button_register)
-    private void onRegisterButtonClicked() {
+    public void onRegisterButtonClicked() {
         String strUserName = userName.getText().toString().trim();
         String strUserEmail = userEmail.getText().toString().trim();
         String strUserPassword = userPassword.getText().toString().trim();
