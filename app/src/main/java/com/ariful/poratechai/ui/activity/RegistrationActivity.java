@@ -27,8 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RegistrationActivity extends AppCompatActivity {
-
-
+    
     //Edit text
     @BindView(R.id.edit_text_user_name)
     EditText userName;
