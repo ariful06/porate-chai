@@ -15,10 +15,9 @@ import android.widget.TextView;
 import com.ariful.poratechai.R;
 import com.ariful.poratechai.adapter.ViewPagerAdapter;
 import com.ariful.poratechai.model.User;
-import com.ariful.poratechai.ui.fragment.ActiveChatFragment;
-import com.ariful.poratechai.ui.fragment.FriendsFragment;
+import com.ariful.poratechai.ui.fragment.ChatsFragment;
+import com.ariful.poratechai.ui.fragment.UsersFragment;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user.getImageURL().equals("default")){
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(MainActivity.this).load(user.getImageURL()).into(profileImage);
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(profileImage);
                 }
             }
 
@@ -86,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.adFragment(new ActiveChatFragment(),"Chats");
-        viewPagerAdapter.adFragment(new FriendsFragment(),"Friends");
+        viewPagerAdapter.adFragment(new ChatsFragment(),"Chats");
+        viewPagerAdapter.adFragment(new UsersFragment(),"Friends");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -107,10 +106,30 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(LoginActivity.newLoginIntent(MainActivity.this));
-            finish();
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             return true;
         }
         return false;
+    }
+
+    private void status(String status){
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String , Object> hashMap = new HashMap<>();
+        hashMap.put("status",status);
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 }
