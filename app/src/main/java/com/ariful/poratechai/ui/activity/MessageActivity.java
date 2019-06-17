@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -171,6 +172,7 @@ public class MessageActivity extends AppCompatActivity {
         map.put("receiver", otherUserId);
         map.put("message", message);
         map.put("isseen", false);
+        map.put("time", ServerValue.TIMESTAMP);
         reference.child("Chats").push().setValue(map);
         messageContent.setText("");
     }

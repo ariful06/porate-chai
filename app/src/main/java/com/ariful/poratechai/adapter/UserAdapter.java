@@ -140,7 +140,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                         }
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
