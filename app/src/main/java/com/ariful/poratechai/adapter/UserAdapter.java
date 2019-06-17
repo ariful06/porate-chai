@@ -35,11 +35,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private boolean isChat;
 
     private String theLastMessage;
+    FirebaseUser firebaseUser;
+    FirebaseAuth auth;
 
     public UserAdapter(Context context, List<User> userList, boolean isChat) {
         this.context = context;
         this.userList = userList;
         this.isChat = isChat;
+        auth= FirebaseAuth.getInstance();
+
     }
 
     @NonNull
@@ -113,31 +117,37 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     private void lastMessageRetrieve(String userId,TextView lastMessageContent){
         theLastMessage  = "default";
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = auth.getCurrentUser();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Chats");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if (chat != null){
-                        if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId) || chat.getReceiver().equals(userId) && chat.getSender().equals(firebaseUser.getUid())){
-                            theLastMessage = chat.getMessage();
+        if (firebaseUser != null){
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            Chat chat = snapshot.getValue(Chat.class);
+                            if (chat != null){
+                                if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId) ||
+                                        chat.getReceiver().equals(userId) && chat.getSender().equals(firebaseUser.getUid())){
+                                    theLastMessage = chat.getMessage();
+                                }
+                            }
+                        }
+                        if ("default".equals(theLastMessage)) {
+                            lastMessageContent.setText("No message.");
+                        } else {
+                            lastMessageContent.setText(theLastMessage);
                         }
                     }
                 }
-                if ("default".equals(theLastMessage)) {
-                    lastMessageContent.setText("No message.");
-                } else {
-                    lastMessageContent.setText(theLastMessage);
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
-            }
+            });
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
 }
