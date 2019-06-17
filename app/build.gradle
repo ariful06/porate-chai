@@ -44,4 +44,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    //animation
+    implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 }

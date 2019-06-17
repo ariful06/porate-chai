@@ -69,13 +69,11 @@ public class RegistrationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-
     @OnClick(R.id.button_register)
     public void onRegisterButtonClicked() {
         String strUserName = userName.getText().toString().trim();
         String strUserEmail = userEmail.getText().toString().trim();
         String strUserPassword = userPassword.getText().toString().trim();
-
         if (TextUtils.isEmpty(strUserName) || TextUtils.isEmpty(strUserEmail) || TextUtils.isEmpty(strUserPassword)) {
             Toast.makeText(this, "ALl fields are required", Toast.LENGTH_SHORT).show();
         } else if (strUserPassword.length() < 6) {

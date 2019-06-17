@@ -28,7 +28,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private List<Chat> chats;
     private String imageURL;
 
-    FirebaseUser firebaseUser;
+    private FirebaseUser firebaseUser;
 
     public MessageAdapter(Context context, List<Chat> chats , String imageURL) {
         this.context = context;
@@ -55,7 +55,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Chat chat = chats.get(position);
         holder.tvMessage.setText(chat.getMessage());
         if (imageURL.equals("default")){
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+            holder.profileImage.setImageResource(R.drawable.default_profile);
         }else{
             Glide.with(context).load(imageURL).into(holder.profileImage);
         }

@@ -3,22 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/white"
+    android:layout_marginBottom="1dp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/ic_launcher"/>
-    <TextView
-        android:id="@+id/text_view_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Jhon Deo"
-        android:layout_toEndOf="@+id/profile_image"
-        android:layout_marginStart="16dp"
         android:layout_centerVertical="true"
-        android:textStyle="bold"
-        android:textAppearance="?android:textAppearanceMedium"/>
+        android:src="@drawable/default_profile"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/online_status"
@@ -26,11 +19,11 @@
         android:layout_height="15dp"
         app:civ_border_width="10dp"
         app:civ_border_color="@color/colorPrimaryDark"
-        android:layout_below="@+id/text_view_user_name"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/default_profile"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="-15dp"
         android:layout_toEndOf="@+id/profile_image"
+        android:layout_alignBottom="@+id/profile_image"
         />
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/offline_status"
@@ -38,11 +31,45 @@
         android:layout_height="15dp"
         app:civ_border_width="10dp"
         app:civ_border_color="@android:color/darker_gray"
-        android:layout_below="@+id/text_view_user_name"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/default_profile"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="-15dp"
+        android:layout_alignBottom="@+id/profile_image"
         android:layout_toEndOf="@+id/profile_image"
         />
+    <LinearLayout
+        android:id="@+id/text_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/profile_image"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        >
+
+        <TextView
+            android:id="@+id/text_view_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jhon Deo"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/text_view_last_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:layout_alignLeft="@+id/text_view_user_name"
+            android:textColor="@android:color/black"
+            android:maxLines="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".ui.activity.SplashActivity">
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/porate_chai_logo"
+        android:layout_centerInParent="true"/>
+    <TextView
+        android:id="@+id/text_view_porate_chai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Porate chai"
+        android:textSize="36dp"
+        android:textColor="@color/textColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"/>
 
-</android.support.constraint.ConstraintLayout>
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.Pulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorAccent"
+        android:layout_below="@+id/text_view_porate_chai"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

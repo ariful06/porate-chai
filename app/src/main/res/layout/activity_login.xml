@@ -1,46 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.activity.RegistrationActivity">
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_bar_layout" />
-    <TextView
-        android:id="@+id/text_view_create_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:text="Login Here"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textStyle="bold" />
-        <EditText
-            android:id="@+id/edit_text_user_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Email" />
 
-        <EditText
-            android:id="@+id/edit_text_user_password"
-            android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/text_view_create_login"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="User Password" />
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Login Here"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textStyle="bold" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_text_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Email"
+                android:textColorHint="@color/colorPrimary" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_text_user_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Password"
+                android:textColorHint="@color/colorPrimary" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_text_user_password"
+            android:background="@drawable/message_box_bg"
             android:text="Login"
-            />
-    <TextView
-        android:id="@+id/text_view_create_new_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Have not account ? Sign up"
-        />
-</LinearLayout>
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/text_view_create_new_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Have not account ? Sign up" />
+    </LinearLayout>
+
+</RelativeLayout>

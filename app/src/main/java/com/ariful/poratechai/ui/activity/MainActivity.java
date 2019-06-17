@@ -27,13 +27,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -62,18 +62,18 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                assert user != null;
                 userName.setText(String.valueOf(user.getUsername()));
-                if (user.getImageURL().equals("default")){
-                    profileImage.setImageResource(R.mipmap.ic_launcher);
-                }else{
+                if (user.getImageURL().equals("default")) {
+                    profileImage.setImageResource(R.drawable.default_profile);
+                } else {
                     Glide.with(getApplicationContext()).load(user.getImageURL()).into(profileImage);
                 }
             }
@@ -85,39 +85,40 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.adFragment(new ChatsFragment(),"Chats");
-        viewPagerAdapter.adFragment(new UsersFragment(),"Friends");
+        viewPagerAdapter.adFragment(new ChatsFragment(), "Chats");
+        viewPagerAdapter.adFragment(new UsersFragment(), "Friends");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+
     }
 
-    public static Intent newInstranceOfMainActivity(Context context) {
+    public static Intent newInstanceOfMainActivity(Context context) {
         return new Intent(context, MainActivity.class);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       getMenuInflater().inflate(R.menu.menu,menu);
-       return true;
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
         return false;
     }
 
-    private void status(String status){
+    private void status(String status) {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        HashMap<String , Object> hashMap = new HashMap<>();
-        hashMap.put("status",status);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
         reference.updateChildren(hashMap);
     }
 

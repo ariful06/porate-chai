@@ -4,54 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.RegistrationActivity">
-
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_bar_layout" />
-
     <TextView
         android:id="@+id/text_view_create_new_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/register_form_container"
         android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:text="create a new account"
+        android:text="Create a new account"
+        android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold" />
-
-
     <LinearLayout
+        android:id="@+id/register_form_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:layout_below="@id/text_view_create_new_account">
-        <EditText
-            android:id="@+id/edit_text_user_name"
+        android:padding="8dp">
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Name"
-            />
-
-        <EditText
-            android:id="@+id/edit_text_user_email"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edit_text_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Name" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Email" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edit_text_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Email" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_text_user_password"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Password" />
-
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edit_text_user_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Password" />
+        </android.support.design.widget.TextInputLayout>
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_text_user_password"
             android:text="Register"
-            />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/message_box_bg"/>
     </LinearLayout>
 </RelativeLayout>
